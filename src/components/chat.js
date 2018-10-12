@@ -1,6 +1,12 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { getChatMessages } from '../actions';
 
 class Chat extends Component {
+    componentDidMount() {
+        this.props.getChatMessages();
+    }
+
     render() {
         return(
             <div>
@@ -10,4 +16,6 @@ class Chat extends Component {
     }
 }
 
-export default Chat;
+export default connect(null, {
+    getChatMessages: getChatMessages
+})(Chat);
