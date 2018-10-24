@@ -1,5 +1,5 @@
 import types from './types';
-import { db } from '../firebase';
+import { auth, db } from '../firebase';
 
 export const createChatRoom = roomDetails => async dispatch => {
     const botMessage = {
@@ -67,8 +67,30 @@ export const getRoomList = () => dispatch => {
 export const sendMessage = (chatId, message) => dispatch => {
     const newMessage = {
         message,
-        name: 'Josh'
+        name: auth.currentUser.displayName
     }
 
     db.ref(`/chat-logs/${chatId}`).push(newMessage);
+}
+
+export const signUp = ({email, password, username}) => async dispatch => {
+    try {
+        await auth.createUserWithEmailAndPassword(email, password);
+
+        const user = auth.currentUser;
+
+        await user.updateProfile({
+            displayName: username
+        });
+
+        console.log('Current User Display Name: ', auth.currentUser.displayName);
+
+        dispatch({
+            type: types.SIGN_UP,
+            displayName: auth.currentUser.displayName
+        });
+
+    } catch(err) {
+        console.log('Sign Up Error: ', err.message);
+    }
 }
