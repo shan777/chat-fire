@@ -3,5 +3,8 @@ export default {
     GET_CHAT_MESSAGES: 'get_chat_messages',
     GET_ROOM_INFORMATION: 'get_room_information',
     GET_ROOM_LIST: 'get_room_list',
-    SEND_MESSAGE: 'send_message'
+    SEND_MESSAGE: 'send_message',
+    SIGN_IN: 'sign_in',
+    SIGN_UP: 'sign_up',
+    SIGN_OUT: 'sign_out'
 }
